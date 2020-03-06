@@ -1,0 +1,14 @@
+#N canvas 883 156 866 535 12;
+#X obj 192 289 ./gkmunger;
+#X obj 300 290 ./gkmunger;
+#X obj 185 173 inlet~;
+#X obj 299 178 inlet~;
+#X obj 427 183 inlet;
+#X obj 192 313 outlet~;
+#X obj 300 314 outlet~;
+#X connect 0 0 5 0;
+#X connect 1 0 6 0;
+#X connect 2 0 0 0;
+#X connect 3 0 1 0;
+#X connect 4 0 0 1;
+#X connect 4 0 1 1;

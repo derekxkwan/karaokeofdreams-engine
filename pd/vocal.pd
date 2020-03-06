@@ -1,0 +1,40 @@
+#N canvas 724 138 1259 967 12;
+#X obj 391 85 adc~ 1;
+#X obj 347 233 dkdistort~;
+#X obj 522 108 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 4100 1;
+#X floatatom 522 244 5 0 0 0 - - -;
+#X obj 352 542 dac~ 1 2;
+#X obj 352 441 *~ 1;
+#X obj 426 442 *~ 1;
+#X obj 631 268 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 3400 1;
+#X floatatom 630 427 5 0 0 0 - - -;
+#X obj 357 401 dkcospan~ 0;
+#X obj 348 355 dkbitcrush~ 16 1;
+#X obj 396 308 i;
+#X obj 829 289 vsl 15 128 1 16 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 5800 1;
+#X floatatom 539 439 5 0 0 0 - - -;
+#X obj 863 451 i;
+#X obj 883 283 vsl 15 128 1 16 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 11100 1;
+#X floatatom 758 625 5 0 0 0 - - -;
+#X connect 0 0 1 0;
+#X connect 1 0 10 0;
+#X connect 2 0 3 0;
+#X connect 2 0 1 1;
+#X connect 5 0 4 0;
+#X connect 6 0 4 1;
+#X connect 7 0 8 0;
+#X connect 7 0 6 1;
+#X connect 7 0 5 1;
+#X connect 9 0 5 0;
+#X connect 9 1 6 0;
+#X connect 10 0 9 0;
+#X connect 11 0 10 1;
+#X connect 11 0 13 0;
+#X connect 12 0 11 0;
+#X connect 14 0 16 0;
+#X connect 14 0 10 2;
+#X connect 15 0 14 0;
