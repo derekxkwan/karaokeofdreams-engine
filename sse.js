@@ -14,7 +14,7 @@ module.exports = function (req, res, next) {
 
   res.sseSend = function(evt_type, data) {
 
-      //res.write('id: ${msgcount}\n');
+      res.write('id: ${msgcount}\n');
       console.log("event: " + evt_type);
       res.write('event: '+ evt_type + '\n');
       console.log("sending: " + data); 

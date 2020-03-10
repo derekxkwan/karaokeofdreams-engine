@@ -111,7 +111,7 @@ async function processLineByLine(curfile) {
     cur.shift();
     
     cur_lyrics = cur;
-    client_send("begin_song", 1);
+    client_send("beginsong", 1);
 };
 
 function load_file(curidx)
