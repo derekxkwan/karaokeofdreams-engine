@@ -8,7 +8,7 @@ const sse = require('./sse');
 
 const readline = require('readline');
 var osc_server = new osc.Server(3333, '0.0.0.0');
-var osc_client = new osc.Client('127.0.0.1', 3334);
+var osc_client = new osc.Client('0.0.0.0', 3334);
 
 
 let cnx = {};
