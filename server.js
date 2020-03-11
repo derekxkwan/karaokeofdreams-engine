@@ -16,13 +16,27 @@ let cid = 0;
 
 let cur_lyrics = [];
 
-let titles = ["gravitational wave me, maybe", "desert de beber", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
+let titles = ["gravitational wave me, maybe", "ski inn", "desert de beber", "seagulls over chatsubo", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(sse);
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+
+function osc_send(addr, msg)
+{
+    osc_client.send(addr, msg,
+		    (err) =>
+		    {
+			if(err)
+			{
+			    console.error(err);				 
+			    osc_client.close();
+			};
+			
+		    });
+}
 
 function client_send(typetag, data)
 {
@@ -61,12 +75,7 @@ app.post('/song', (req, res) =>
 	     //console.log("song requested");
 	     let curidx = parseInt(req.body.idx);
 	     load_file(curidx);
-	     osc_client.send('/song', curidx,
-			     (err) =>
-			     {
-				 if(err) console.error(err);
-				 osc_client.close();
-				 });
+	     osc_send('/song', curidx);
 	     console.log(curidx);
 	     });
 
@@ -79,13 +88,19 @@ osc_server.on('message',
 		  if(cur_addr == "/lyrics")
 		  {
 		      cur_idx = parseInt(msg[0]);
-		      let cur_line = cur_lyrics[cur_idx];
-		      console.log(cur_line);
-		      client_send("lyrics", cur_line);
-		      
+		      if(cur_idx >= cur_lyrics.length)
+		      {
+			  client_send("beginsong", -1);
+			  osc_send('/stop', 1);
+
+			  console.log("stopping");
+		      }
+		      else
+		      {
+			  let cur_line = cur_lyrics[cur_idx];
+			  client_send("lyrics", cur_line);
+		      };
 		  };
-
-
 	      });
 
 async function processLineByLine(curfile) {

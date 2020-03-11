@@ -33,7 +33,7 @@
 #X obj 694 609 ../abs/dkvanadsr~;
 #X obj 522 577 *~;
 #X obj 143 219 * 1;
-#X obj 114 666 *~ 0.25;
+#X obj 114 666 *~ 0.125;
 #X connect 0 0 17 0;
 #X connect 0 0 30 1;
 #X connect 0 1 9 2;

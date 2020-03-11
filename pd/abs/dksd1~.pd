@@ -1,4 +1,4 @@
-#N canvas 86 147 1242 837 12;
+#N canvas 86 145 1242 837 12;
 #X obj 384 672 *~;
 #X obj 488 594 vline~;
 #X obj 251 509 noise~;
@@ -32,10 +32,10 @@
 #X text 142 182 main pitch (hz);
 #X text 20 45 Derek Kwan \, 2016;
 #X obj 646 17 inlet;
-#X obj 865 67 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X msg 865 87 error;
-#X obj 865 109 print \$0-dkbd;
+#X obj 1006 84 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 1009 110 error;
+#X obj 1009 132 print \$0-dkbd;
 #X text 9 18 dksd1~: snare drum synth;
 #X text 847 201 pitchiness (q);
 #X text 769 439 args: 1 main pitch \, 2 note dur (ms) \, 3 pitch glide

@@ -15,13 +15,12 @@ export class App extends React.Component
 	//this.render_lyrics = this.render_lyrics.bind(this);
 	this.state = {
 	    playing: false,
-	    lyrics: "",
+	    lyrics: " ",
 	    bkg: "#FFFFFF"
 	};
 	}
     
-    titles = ["gravitational wave me, maybe", "desert de beber", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"];
-
+    titles = ["gravitational wave me, maybe", "ski inn", "desert de beber", "seagulls over chatsubo", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
     
     rgb_string()
     {
@@ -60,11 +59,14 @@ export class App extends React.Component
 		    this.setState({playing: true});
 		    console.log("begin_song");
 		}
-		else if(wantplaying <= 0 && isplaying)
+		else if(wantplaying <= 0)
 		{
 		    this.setState({lyrics: " "});
 		    this.setState({playing: false});
+		    console.log("stop_song");
 		}
+		else
+		    console.log("err!");
 	    }, false);
 
 
