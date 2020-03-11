@@ -1,4 +1,4 @@
-#N canvas 258 143 1760 977 12;
+#N canvas 77 114 1760 977 12;
 #X obj 238 875 abs/dkezdac~ 1 2;
 #X obj 223 798 abs/vfreeverb~;
 #X obj 153 664 ./melsynths_ipt;
@@ -14,7 +14,7 @@
 -1 -1 12700 1;
 #X floatatom 763 267 5 0 0 0 - - -;
 #X obj 554 509 loadbang;
-#N canvas 51 290 866 697 loadmidifile 0;
+#N canvas 51 289 866 697 loadmidifile 1;
 #X obj 156 160 random 1000;
 #X obj 173 107 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
@@ -56,7 +56,7 @@
 #X obj 24 229 t b b;
 #X obj 102 215 t b b b, f 27;
 #X obj 1070 311 vsl 15 128 0 0.75 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 5544 1;
+-1 -1 0 1;
 #X msg 1075 468 phdepth \$1;
 #X floatatom 1113 432 5 0 0 0 - - -;
 #X msg 1271 464 phrate \$1;
@@ -131,13 +131,13 @@
 #X connect 19 1 13 1;
 #X restore 133 544 pd midireader;
 #X obj 1275 275 vsl 15 128 0.5 3 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 4158 1;
+-1 -1 0 1;
 #X floatatom 1291 429 5 0 0 0 - - -;
 #X obj 1054 532 vsl 15 128 0 0.75 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 7990 1;
+-1 -1 0 1;
 #X floatatom 1111 660 5 0 0 0 - - -;
 #X obj 1320 530 vsl 15 128 0.5 2 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 803 1;
+-1 -1 0 1;
 #X floatatom 1346 693 5 0 0 0 - - -;
 #X msg 1091 701 fldepth \$1;
 #X msg 1316 719 flrate \$1;
@@ -147,19 +147,19 @@
 #X obj 1087 511 abs/dkrrand 0 0.75;
 #X obj 1463 534 abs/dkrrand 0.5 5;
 #X obj 1450 570 vsl 15 128 0.5 5 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 9438 1;
+-1 -1 0 1;
 #X floatatom 1486 689 5 0 0 0 - - -;
 #X msg 1449 726 flwidth \$1;
 #X obj 1595 588 vsl 15 128 0 0.5 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 12402 1;
+-1 -1 0 1;
 #X floatatom 1639 690 5 0 0 0 - - -;
 #X msg 1590 724 flfb \$1;
 #X obj 1604 557 abs/dkrrand 0 0.5;
 #X obj 1405 275 vsl 15 128 0 0.1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 6076 1;
+-1 -1 0 1;
 #X floatatom 1433 402 5 0 0 0 - - -;
 #X obj 1594 250 vsl 15 128 0.1 1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 10198 1;
+-1 -1 0 1;
 #X floatatom 1659 346 5 0 0 0 - - -;
 #X msg 1405 432 chdepth \$1;
 #X msg 1590 439 chrate \$1;
@@ -169,13 +169,12 @@
 #X text 752 57 vol;
 #X obj 1227 218 abs/dkrrand 0.5 3;
 #X obj 1332 505 abs/dkrrand 0.5 2;
-#N canvas 837 172 901 521 oschandler 1;
+#N canvas 1054 244 901 521 oschandler 0;
 #X obj 137 87 oscparse;
 #X obj 290 28 loadbang;
 #X msg 290 68 listen 3334;
 #X obj 274 103 netreceive -u -b;
 #X obj 137 111 list trim;
-#X obj 128 277 sel 0 1 2 3 4 5 6 7 8 9 10 11 12;
 #X obj 427 274 oscformat -f f lyrics;
 #X obj 427 298 list prepend send;
 #X obj 427 322 list trim;
@@ -189,23 +188,36 @@
 #X msg 197 166 bang;
 #X obj 197 190 s stopyrengines;
 #X obj 137 135 route song stop;
+#X obj 678 296 loadbang;
+#X obj 591 359 text define miditracks;
+#X msg 678 320 read midifiles.txt;
+#X obj 138 313 text get miditracks;
+#X text 764 294 w/o extension;
+#X obj 138 337 makefilename ./midi/%s.mid;
+#X obj 138 361 list prepend read;
+#X obj 138 385 list trim;
 #X connect 0 0 4 0;
 #X connect 1 0 2 0;
-#X connect 1 0 9 0;
+#X connect 1 0 8 0;
 #X connect 2 0 3 0;
 #X connect 3 0 0 0;
-#X connect 4 0 17 0;
+#X connect 4 0 16 0;
+#X connect 5 0 6 0;
 #X connect 6 0 7 0;
-#X connect 7 0 8 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 0;
-#X connect 10 0 6 0;
-#X connect 12 0 5 0;
-#X connect 12 1 13 0;
-#X connect 14 0 6 0;
-#X connect 15 0 16 0;
-#X connect 17 0 12 0;
-#X connect 17 1 15 0;
+#X connect 7 0 10 0;
+#X connect 8 0 10 0;
+#X connect 9 0 5 0;
+#X connect 11 0 20 0;
+#X connect 11 1 12 0;
+#X connect 13 0 5 0;
+#X connect 14 0 15 0;
+#X connect 16 0 11 0;
+#X connect 16 1 14 0;
+#X connect 17 0 19 0;
+#X connect 19 0 18 0;
+#X connect 20 0 22 0;
+#X connect 22 0 23 0;
+#X connect 23 0 24 0;
 #X restore 930 18 pd oschandler;
 #X obj 1038 25 loadbang;
 #X msg 1038 49 \; pd dsp 1;
