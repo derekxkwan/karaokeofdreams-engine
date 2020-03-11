@@ -169,7 +169,7 @@
 #X text 752 57 vol;
 #X obj 1227 218 abs/dkrrand 0.5 3;
 #X obj 1332 505 abs/dkrrand 0.5 2;
-#N canvas 1054 244 901 521 oschandler 0;
+#N canvas 1054 242 901 521 oschandler 0;
 #X obj 137 87 oscparse;
 #X obj 290 28 loadbang;
 #X msg 290 68 listen 3334;
@@ -196,6 +196,10 @@
 #X obj 138 337 makefilename ./midi/%s.mid;
 #X obj 138 361 list prepend read;
 #X obj 138 385 list trim;
+#X obj 138 409 t a b;
+#X obj 233 475 outlet;
+#X text 244 439 trig;
+#X obj 142 476 outlet;
 #X connect 0 0 4 0;
 #X connect 1 0 2 0;
 #X connect 1 0 8 0;
@@ -218,6 +222,9 @@
 #X connect 20 0 22 0;
 #X connect 22 0 23 0;
 #X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 25 0 28 0;
+#X connect 25 1 26 0;
 #X restore 930 18 pd oschandler;
 #X obj 1038 25 loadbang;
 #X msg 1038 49 \; pd dsp 1;
