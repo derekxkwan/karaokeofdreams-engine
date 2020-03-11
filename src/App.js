@@ -20,8 +20,8 @@ export class App extends React.Component
 	};
 	}
     
-    titles = ["gravitational wave me, maybe", "ski inn", "desert de beber", "seagulls over chatsubo", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
-    
+    titles = ["seagulls over home", "gravitational wave me, maybe", "ski inn", "day star in your eyes", "desert de beber", "hack the fuck out of it", "seagulls over chatsubo", "so many cats, so little time", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
+
     rgb_string()
     {
 	let int_array = Array.from({length: 3}, (x, i) => parseInt(Math.random() * 100 + 155).toString(16).toUpperCase());

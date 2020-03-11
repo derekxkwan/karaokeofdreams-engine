@@ -16,7 +16,7 @@ let cid = 0;
 
 let cur_lyrics = [];
 
-let titles = ["gravitational wave me, maybe", "ski inn", "desert de beber", "seagulls over chatsubo", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
+let titles = ["seagulls over home", "gravitational wave me, maybe", "ski inn", "day star in your eyes", "desert de beber", "hack the fuck out of it", "seagulls over chatsubo", "so many cats, so little time", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(sse);
