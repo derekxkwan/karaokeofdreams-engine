@@ -1,4 +1,4 @@
-#N canvas 482 144 1422 845 12;
+#N canvas 482 142 1422 845 12;
 #X obj 100 435 pack f f f;
 #X obj 460 654 abs/pdkl-rrand2;
 #X obj 91 317 - 1;
@@ -69,6 +69,8 @@
 #X msg 1048 240 all \$1;
 #X obj 1217 215 abs/dkrrand 100 150;
 #X msg 1217 239 all \$1;
+#X obj 463 86 r randomizer_trig;
+#X obj 463 110 t b b;
 #X connect 0 0 56 0;
 #X connect 1 0 33 0;
 #X connect 2 0 50 0;
@@ -147,3 +149,6 @@
 #X connect 67 0 56 4;
 #X connect 68 0 69 0;
 #X connect 69 0 56 5;
+#X connect 70 0 71 0;
+#X connect 71 0 5 0;
+#X connect 71 1 51 0;
