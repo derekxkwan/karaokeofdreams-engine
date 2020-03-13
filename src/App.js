@@ -27,6 +27,22 @@ export class App extends React.Component
 	let int_array = Array.from({length: 3}, (x, i) => parseInt(Math.random() * 100 + 155).toString(16).toUpperCase());
 	return ("#" + int_array.join(""));
     }
+
+     startSong(wantplaying)
+    {
+	if(wantplaying)
+	{
+	    this.setState({playing: true});
+            window.scrollTo(0,0);
+	    console.log("begin_song");
+	}
+	else
+	{
+	    this.setState({lyrics: " "});
+	    this.setState({playing: false});
+	    console.log("stop_song");
+	};
+    }
     
     componentDidMount()
     {
@@ -54,18 +70,9 @@ export class App extends React.Component
 		let isplaying = this.state.playing;
 		let wantplaying = parseInt(e.data);
 		if(wantplaying > 0 && !isplaying)
-		{
-			
-		    this.setState({playing: true});
-                    window.scrollTo(0,0);
-		    console.log("begin_song");
-		}
+		    this.startSong(true);
 		else if(wantplaying <= 0)
-		{
-		    this.setState({lyrics: " "});
-		    this.setState({playing: false});
-		    console.log("stop_song");
-		}
+		    this.startSong(false);
 		else
 		    console.log("err!");
 	    }, false);
@@ -106,21 +113,27 @@ export class App extends React.Component
 	//alert(evt.text);
     }
 
+
+
     render(){
-return (
-    <div className="App">
-	  <div id="titlebank"
-	  style={this.state.playing ? {visibility: 'hidden'} : {visibility: 'visible'}}>
-	  {this.titles.map((title, idx) => 
+	return (
+		<div className="App">
+		<div id="titlebank"
+	    style={this.state.playing ? {visibility: 'hidden'} : {visibility: 'visible'}}>
+		{this.titles.map((title, idx) => 
 			   this.render_songtitle(title, idx))}
-      </div>
-	<div id="lyricsbank"
-	style={this.state.playing ? {visibility: 'visible'} : {visibility: 'hidden'}}
-	>
-	  {this.render_lyrics(this.state.lyrics, this.state.bkg)}
-    </div>
-    </div>
-  );
+	    </div>
+		<div id="lyricsbank"
+	    style={this.state.playing ? {visibility: 'visible'} : {visibility: 'hidden'}}
+		>
+		{this.render_lyrics(this.state.lyrics, this.state.bkg)}
+		<br />
+		<div id="control">
+		<button type="button" className="karaokeButton" onClick={() => this.startSong(false)}>stop</button>
+		</div>
+		</div>
+		</div>
+	);
     
     }
     }
