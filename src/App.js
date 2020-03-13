@@ -57,6 +57,7 @@ export class App extends React.Component
 		{
 			
 		    this.setState({playing: true});
+                    window.scrollTo(0,0);
 		    console.log("begin_song");
 		}
 		else if(wantplaying <= 0)
