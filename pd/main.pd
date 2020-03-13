@@ -1,4 +1,4 @@
-#N canvas 163 154 1523 949 12;
+#N canvas 163 153 1523 949 12;
 #X obj 132 840 abs/dkezdac~ 1 2;
 #X obj 135 751 abs/vfreeverb~;
 #X obj 47 629 ./melsynths_ipt;
@@ -56,7 +56,7 @@
 #X obj 24 229 t b b;
 #X obj 102 215 t b b b, f 27;
 #X obj 839 257 vsl 15 128 0 0.75 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 167 1;
+-1 -1 4077 1;
 #X msg 844 414 phdepth \$1;
 #X floatatom 882 378 5 0 0 0 - - -;
 #X msg 1040 410 phrate \$1;
@@ -161,13 +161,13 @@
 #X connect 19 1 13 1;
 #X restore 27 509 pd midireader;
 #X obj 1044 221 vsl 15 128 0.5 3 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 8184 1;
+-1 -1 7572 1;
 #X floatatom 1060 375 5 0 0 0 - - -;
 #X obj 823 478 vsl 15 128 0 0.75 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 1106 1;
+-1 -1 491 1;
 #X floatatom 880 606 5 0 0 0 - - -;
 #X obj 1089 476 vsl 15 128 0.5 2 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 9909 1;
+-1 -1 6774 1;
 #X floatatom 1115 639 5 0 0 0 - - -;
 #X msg 860 647 fldepth \$1;
 #X msg 1085 665 flrate \$1;
@@ -177,19 +177,19 @@
 #X obj 856 457 abs/dkrrand 0 0.75;
 #X obj 1232 480 abs/dkrrand 0.5 5;
 #X obj 1219 516 vsl 15 128 0.5 5 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 5793 1;
+-1 -1 7996 1;
 #X floatatom 1255 635 5 0 0 0 - - -;
 #X msg 1218 672 flwidth \$1;
 #X obj 1364 534 vsl 15 128 0 0.5 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 10474 1;
+-1 -1 6765 1;
 #X floatatom 1408 636 5 0 0 0 - - -;
 #X msg 1359 670 flfb \$1;
 #X obj 1373 503 abs/dkrrand 0 0.5;
 #X obj 1174 221 vsl 15 128 0 0.1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 4398 1;
+-1 -1 9768 1;
 #X floatatom 1202 348 5 0 0 0 - - -;
 #X obj 1363 196 vsl 15 128 0.1 1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 3683 1;
+-1 -1 3281 1;
 #X floatatom 1428 292 5 0 0 0 - - -;
 #X msg 1174 378 chdepth \$1;
 #X msg 1359 385 chrate \$1;
@@ -199,7 +199,7 @@
 #X text 541 264 vol;
 #X obj 996 164 abs/dkrrand 0.5 3;
 #X obj 1101 451 abs/dkrrand 0.5 2;
-#N canvas 352 114 1049 652 oschandler 1;
+#N canvas 352 114 1049 652 oschandler 0;
 #X obj 137 87 oscparse;
 #X obj 290 28 loadbang;
 #X msg 290 68 listen 3334;
