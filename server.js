@@ -16,7 +16,7 @@ let cid = 0;
 
 let cur_lyrics = [];
 
-let titles = ["seagulls over home", "gravitational wave me, maybe", "ski inn", "day star in your eyes", "desert de beber", "hack the fuck out of it", "seagulls over chatsubo", "so many cats, so little time", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
+let titles = ["gravitational wave me, maybe", "ski inn", "day star in your eyes", "desert de beber", "hack the fuck out of it", "cute lover fluffy fur heart pom pom soft candy matte phone case", "seagulls over chatsubo", "so many cats, so little time", "She bid a lot, the bot, stuck the boot out.", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(sse);
@@ -74,8 +74,12 @@ app.post('/song', (req, res) =>
 	 {
 	     //console.log("song requested");
 	     let curidx = parseInt(req.body.idx);
-	     load_file(curidx);
-	     osc_send('/song', curidx);
+	     if(curidx >= 0 && curidx < titles.length)
+		 {
+		     load_file(curidx);
+		     osc_send('/song', curidx);
+		 }
+	     else osc_send('/stop', 1);
 	     console.log(curidx);
 	     });
 

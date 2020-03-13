@@ -1,4 +1,4 @@
-#N canvas 482 142 1422 845 12;
+#N canvas 482 140 1422 845 12;
 #X obj 100 435 pack f f f;
 #X obj 460 654 abs/pdkl-rrand2;
 #X obj 91 317 - 1;
@@ -67,10 +67,12 @@
 #X obj 1147 96 t b b;
 #X obj 1048 216 abs/dkrrand 0.1 0.3;
 #X msg 1048 240 all \$1;
-#X obj 1217 215 abs/dkrrand 100 150;
 #X msg 1217 239 all \$1;
 #X obj 463 86 r randomizer_trig;
 #X obj 463 110 t b b;
+#X obj 1280 163 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 1217 215 abs/dkrrand 100 300;
 #X connect 0 0 56 0;
 #X connect 1 0 33 0;
 #X connect 2 0 50 0;
@@ -144,11 +146,12 @@
 #X connect 63 0 56 5;
 #X connect 64 0 65 0;
 #X connect 65 0 66 0;
-#X connect 65 1 68 0;
+#X connect 65 1 72 0;
 #X connect 66 0 67 0;
 #X connect 67 0 56 4;
-#X connect 68 0 69 0;
-#X connect 69 0 56 5;
-#X connect 70 0 71 0;
-#X connect 71 0 5 0;
-#X connect 71 1 51 0;
+#X connect 68 0 56 5;
+#X connect 69 0 70 0;
+#X connect 70 0 5 0;
+#X connect 70 1 51 0;
+#X connect 71 0 72 0;
+#X connect 72 0 68 0;

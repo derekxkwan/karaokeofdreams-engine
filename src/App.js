@@ -20,7 +20,7 @@ export class App extends React.Component
 	};
 	}
     
-    titles = ["seagulls over home", "gravitational wave me, maybe", "ski inn", "day star in your eyes", "desert de beber", "hack the fuck out of it", "seagulls over chatsubo", "so many cats, so little time", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
+    titles = ["gravitational wave me, maybe", "ski inn", "day star in your eyes", "desert de beber", "hack the fuck out of it", "cute lover fluffy fur heart pom pom soft candy matte phone case", "seagulls over chatsubo", "so many cats, so little time", "She bid a lot, the bot, stuck the boot out.", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
 
     rgb_string()
     {
@@ -113,6 +113,12 @@ export class App extends React.Component
 	//alert(evt.text);
     }
 
+    stopClick()
+    {
+	axios.post('/song', {idx: -1})
+	.then(res => {});
+	this.startSong(false);
+    }
 
 
     render(){
@@ -129,7 +135,7 @@ export class App extends React.Component
 		{this.render_lyrics(this.state.lyrics, this.state.bkg)}
 		<br />
 		<div id="control">
-		<button type="button" className="karaokeButton" onClick={() => this.startSong(false)}>stop</button>
+		<button type="button" className="karaokeButton" onClick={() => this.stopClick()}>stop</button>
 		</div>
 		</div>
 		</div>
