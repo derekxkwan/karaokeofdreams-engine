@@ -11,7 +11,7 @@
 #X text 222 268 39 clap;
 #X restore 515 333 pd mappings;
 #X obj 153 180 / 127;
-#N canvas 877 210 981 716 drumbank 0;
+#N canvas 877 208 981 716 drumbank 0;
 #X obj 151 32 inlet;
 #X text 195 31 midinote;
 #X obj 350 660 outlet~;
@@ -19,7 +19,7 @@
 #X obj 155 71 route 35 36 37 38 39 40 41 42 43 44 45 46, f 88;
 #X obj 565 334 abs/dkhh3~;
 #X obj 707 351 abs/dkhh1~ 5000 500;
-#X obj 393 357 *~ 0.5;
+#X obj 344 383 *~ 0.5;
 #X obj 707 375 *~ 0.5;
 #X obj 48 237 abs/dkbd1~ 60 150 0.5;
 #X obj 60 112 loadbang;
@@ -37,8 +37,8 @@
 -1 -1;
 #X obj 108 297 abs/dkbd2~ 70 5 100;
 #X obj 565 358 *~ 0.75;
-#X obj 393 333 abs/dkhh1~ 7500 50 10000;
-#X msg 60 136 noiseamt 0.4 \, dur 200 \, lop 2500;
+#X obj 344 359 abs/dkhh1~ 1000 100 10000;
+#X msg 60 136 noiseamt 0.5 \, dur 100 \, lop 2500;
 #X connect 0 0 4 0;
 #X connect 3 0 2 0;
 #X connect 4 0 9 0;
