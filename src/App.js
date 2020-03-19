@@ -14,6 +14,7 @@ export class App extends React.Component
 	this.socket = io();
 	this.nosleep = new NoSleep();
 	this.nosleeping = false;
+	this.fullscreen = false;
 	//this.render_lyrics = this.render_lyrics.bind(this);
 	this.state = {
 	    playing: false,
@@ -106,6 +107,24 @@ export class App extends React.Component
 	    {
 		this.nosleep.enable();
 		this.nosleeping = true
+	    };
+	if(this.fullscreen == false)
+	    {
+		let elem = document.documentElement;
+		if (elem.requestFullscreen) {
+		    elem.requestFullscreen();
+		    this.fullscreen = true;
+		} else if (elem.mozRequestFullScreen) { /* Firefox */
+		    elem.mozRequestFullScreen();
+		    this.fullscreen = true;
+		} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+		    this.fullscreen = true;
+		    elem.webkitRequestFullscreen();
+		} else if (elem.msRequestFullscreen) { /* IE/Edge */
+		    elem.msRequestFullscreen();
+		    this.fullscreen = true;
+
+		};
 	    };
 
 	this.socket.emit('song', idx);

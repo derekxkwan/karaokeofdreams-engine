@@ -11,7 +11,7 @@
 #X text 222 268 39 clap;
 #X restore 515 333 pd mappings;
 #X obj 153 180 / 127;
-#N canvas 126 180 1438 831 drumbank 0;
+#N canvas 126 179 1438 831 drumbank 0;
 #X obj 151 32 inlet;
 #X text 195 31 midinote;
 #X obj 449 796 outlet~;
@@ -138,9 +138,9 @@
 #X connect 52 0 47 1;
 #X restore 100 294 pd drumbank;
 #X obj 85 255 pack f f;
-#X obj 111 365 abs/dkcospan~ 0;
-#X obj 125 524 outlet~;
-#X obj 214 527 outlet~;
+#X obj 103 398 abs/dkcospan~ 0;
+#X obj 117 557 outlet~;
+#X obj 206 560 outlet~;
 #X msg 216 140 38 1;
 #X obj 480 52 inlet;
 #X text 533 48 panning;
@@ -149,8 +149,8 @@
 #X msg 391 145 1;
 #X obj 270 291 line~;
 #X msg 258 145 \$1 5;
-#X obj 116 449 *~;
-#X obj 268 460 *~;
+#X obj 108 482 *~;
+#X obj 260 493 *~;
 #X text 316 60 volume;
 #X obj 80 51 unpack f f;
 #X obj 91 17 inlet;
@@ -158,6 +158,7 @@
 #X obj 85 174 spigot;
 #X obj 121 133 > 20;
 #X obj 124 324 hip~ 20;
+#X obj 124 348 *~ 0.8;
 #X connect 1 0 3 1;
 #X connect 2 0 23 0;
 #X connect 3 0 2 0;
@@ -180,4 +181,5 @@
 #X connect 20 1 1 0;
 #X connect 21 0 3 0;
 #X connect 22 0 21 1;
-#X connect 23 0 4 0;
+#X connect 23 0 24 0;
+#X connect 24 0 4 0;
