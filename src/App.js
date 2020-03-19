@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import {SongTitle} from './SongTitle';
 import {Lyrics} from './Lyrics';
-import axios from 'axios';
 import './main.css';
 import NoSleep from 'nosleep.js';
-
+import io from 'socket.io-client';
 
 export class App extends React.Component
 {
     constructor(props) {
 	super(props);
-	this.eventsource = null;
+	this.socket = io();
+	this.nosleep = new NoSleep();
+	this.nosleeping = false;
 	//this.render_lyrics = this.render_lyrics.bind(this);
 	this.state = {
 	    playing: false,
@@ -21,8 +22,6 @@ export class App extends React.Component
 	};
 	}
     
-    nosleep = new NoSleep();
-    nosleeping = false;
 
     titles = ["gravitational wave me, maybe", "ski inn", "day star in your eyes", "desert de beber", "hack the fuck out of it", "cute lover fluffy fur heart pom pom soft candy matte phone case", "seagulls over chatsubo", "so many cats, so little time", "She bid a lot, the bot, stuck the boot out.", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
 
@@ -50,39 +49,28 @@ export class App extends React.Component
     
     componentDidMount()
     {
-	if(!this.eventsource)
-	{
-	    console.log("establishing eventsource");
-	    this.eventsource = new EventSource('/stream');
-	    /*
-	    this.eventsource.onmessage = (e) =>
-	    {
-		console.log(e.data);
-	    };
-	    */
 
-
-	    this.eventsource.addEventListener('lyrics', (e) =>
+	this.socket.on('lyrics', (data) =>
 	    {
-		let cur_lyrics = e.data;
+		let cur_lyrics = data;
 		let cur_color = this.rgb_string();
 		this.setState({lyrics: cur_lyrics});
 		this.setState({bkg: cur_color});
-	    }, false);
-	    this.eventsource.addEventListener('beginsong', (e) =>
+	    });
+	  this.socket.on('beginsong', (data) =>
 	    {
 		let isplaying = this.state.playing;
-		let wantplaying = parseInt(e.data);
+		let wantplaying = parseInt(data);
 		if(wantplaying > 0)
 		    this.startSong(true);
 		else if(wantplaying <= 0)
 		    this.startSong(false);
 		else
 		    console.log("err!");
-	    }, false);
+	    });
 
 
-	};
+
     }
 
     componentWillUnmount() {
@@ -119,19 +107,24 @@ export class App extends React.Component
 		this.nosleep.enable();
 		this.nosleeping = true
 	    };
-	
+
+	this.socket.emit('song', idx);
+	/*
 	axios.post('/song', {idx: idx})
 	    .then(res => {
 
 		});
+*/
 	//alert(evt.text);
     }
 
     stopClick()
     {
+	/*
 	axios.post('/song', {idx: 999})
-	.then(res => {});
-
+	.then(res => { } );
+	*/
+	this.socket.emit('song', 999);
     }
 
 

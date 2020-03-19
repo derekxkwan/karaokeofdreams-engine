@@ -72,7 +72,7 @@ app.get('/stream', (req, res) =>
 
 app.post('/song', (req, res) =>
 	 {
-	     //console.log("song requested");
+	     console.log("song requested");
 	     let curidx = parseInt(req.body.idx);
 	     if(curidx >= 0 && curidx < titles.length)
 		 {
@@ -82,9 +82,10 @@ app.post('/song', (req, res) =>
 	     else
 		 {
 		     osc_send('/stop', 1);
-		     client_send("beginsong", -1);
+		     client_send("beginsong", 0);
 		 };
 	     console.log(curidx);
+	     res.end();
 	     });
 
 app.listen(process.env.PORT || 8080);
@@ -92,13 +93,14 @@ app.listen(process.env.PORT || 8080);
 osc_server.on('message',
 	      (msg) =>
 	      {
+		  console.log(msg);
 		  let cur_addr = msg.shift();
 		  if(cur_addr == "/lyrics")
 		  {
 		      cur_idx = parseInt(msg[0]);
 		      if(cur_idx >= cur_lyrics.length)
 		      {
-			  client_send("beginsong", -1);
+			  client_send("beginsong", 0);
 			  osc_send('/stop', 1);
 
 			  console.log("stopping");

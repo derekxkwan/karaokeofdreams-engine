@@ -1,10 +1,11 @@
 const express = require('express');
-const bodyParser = require('body-parser')
 const path = require('path');
 const app = express();
+const  server = require('http').createServer(app);
+var io = require('socket.io')(server);
 const osc = require('node-osc');
 const fs = require('fs');
-const sse = require('./sse');
+// const sse = require('./sse');
 
 const readline = require('readline');
 var osc_server = new osc.Server(3333, '0.0.0.0');
@@ -19,9 +20,9 @@ let cur_lyrics = [];
 let titles = ["gravitational wave me, maybe", "ski inn", "day star in your eyes", "desert de beber", "hack the fuck out of it", "cute lover fluffy fur heart pom pom soft candy matte phone case", "seagulls over chatsubo", "so many cats, so little time", "She bid a lot, the bot, stuck the boot out.", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
 
 app.use(express.static(path.join(__dirname, 'build')));
-app.use(sse);
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+//app.use(sse);
+//app.use(bodyParser.json()); // support json encoded bodies
+//app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 
 function osc_send(addr, msg)
@@ -38,11 +39,7 @@ function osc_send(addr, msg)
 		    });
 }
 
-function client_send(typetag, data)
-{
-    for(let [key,value] of Object.entries(cnx))
-	value.sseSend(typetag, data);
-}
+
 
 app.get('/ping', function (req, res) {
  return res.send('pong');
@@ -51,24 +48,6 @@ app.get('/ping', function (req, res) {
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
-app.get('/stream', (req, res) =>
-	{
-	    console.log("establishing stream...");
-	    res.sseSetup();
-
-	    ((cid) =>
-	     {
-		 cnx[cid] = res;
-		 req.on("close", () => {delete cnx[cid]});
-	     })(++cid);
-
-	    /*
-	    for(let [key,value] of Object.entries(cnx))
-		value.sseSend("hi!");
-	    */
-
-	});
 
 app.post('/song', (req, res) =>
 	 {
@@ -88,7 +67,45 @@ app.post('/song', (req, res) =>
 	     res.end();
 	     });
 
-app.listen(process.env.PORT || 8080);
+//app.listen(process.env.PORT || 8080);
+
+server.listen(8080);
+
+io.sockets.on('connection',
+	      (socket) =>
+	      {
+		  cnx[socket.id] = socket;
+		  //client_list.push[socket.id];
+
+		  socket.on("song", (data) =>
+			    {
+
+				let curidx = parseInt(data);
+				if(curidx >= 0 && curidx < titles.length)
+				{
+				    load_file(curidx);
+				    osc_send('/song', curidx);
+				}
+				else
+				{
+				    osc_send('/stop', 1);
+				    io.sockets.emit("beginsong", 0);
+				};
+				console.log(curidx);
+
+			    });
+		  socket.on('disconnect',
+			    () =>
+			    {
+				//let cidx = client_list.indexOf(socket.id);
+				delete cnx[socket.id];
+				/*
+				if(cidx > -1)
+				    client_list.splice(cidx, 1);
+				    */
+			    });
+			    
+	      });
 
 osc_server.on('message',
 	      (msg) =>
@@ -100,7 +117,8 @@ osc_server.on('message',
 		      cur_idx = parseInt(msg[0]);
 		      if(cur_idx >= cur_lyrics.length)
 		      {
-			  client_send("beginsong", -1);
+			  //client_send("beginsong", 0);
+			  io.sockets.emit('beginsong', 0);
 			  osc_send('/stop', 1);
 
 			  console.log("stopping");
@@ -108,7 +126,8 @@ osc_server.on('message',
 		      else
 		      {
 			  let cur_line = cur_lyrics[cur_idx];
-			  client_send("lyrics", cur_line);
+			  //client_send("lyrics", cur_line);
+			  io.sockets.emit('lyrics', cur_line);
 		      };
 		  };
 	      });
@@ -136,7 +155,8 @@ async function processLineByLine(curfile) {
     cur.shift();
     
     cur_lyrics = cur;
-    client_send("beginsong", 1);
+    //client_send("beginsong", 1);
+    io.sockets.emit('beginsong', 1);
 };
 
 function load_file(curidx)
