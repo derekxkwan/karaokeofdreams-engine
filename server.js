@@ -79,7 +79,11 @@ app.post('/song', (req, res) =>
 		     load_file(curidx);
 		     osc_send('/song', curidx);
 		 }
-	     else osc_send('/stop', 1);
+	     else
+		 {
+		     osc_send('/stop', 1);
+		     client_send("beginsong", -1);
+		 };
 	     console.log(curidx);
 	     });
 

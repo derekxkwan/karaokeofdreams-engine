@@ -5,6 +5,7 @@ import {SongTitle} from './SongTitle';
 import {Lyrics} from './Lyrics';
 import axios from 'axios';
 import './main.css';
+import NoSleep from 'nosleep.js';
 
 
 export class App extends React.Component
@@ -20,6 +21,9 @@ export class App extends React.Component
 	};
 	}
     
+    nosleep = new NoSleep();
+    nosleeping = false;
+
     titles = ["gravitational wave me, maybe", "ski inn", "day star in your eyes", "desert de beber", "hack the fuck out of it", "cute lover fluffy fur heart pom pom soft candy matte phone case", "seagulls over chatsubo", "so many cats, so little time", "She bid a lot, the bot, stuck the boot out.", "Seaborn", "The desert lives in your hair", "Dust of stars, Surf the universe", "My body is a battleground"]
 
     rgb_string()
@@ -69,7 +73,7 @@ export class App extends React.Component
 	    {
 		let isplaying = this.state.playing;
 		let wantplaying = parseInt(e.data);
-		if(wantplaying > 0 && !isplaying)
+		if(wantplaying > 0)
 		    this.startSong(true);
 		else if(wantplaying <= 0)
 		    this.startSong(false);
@@ -83,7 +87,11 @@ export class App extends React.Component
 
     componentWillUnmount() {
      if(this.eventsource)
-     this.eventsource.close();
+        {
+        this.eventsource.close();
+        this.nosleep.disable();
+        };
+
     }
 
     render_songtitle(cur, idx)
@@ -106,6 +114,12 @@ export class App extends React.Component
     {
 	//alert(cur);
 	console.log(idx);
+	if(this.nosleeping == false)
+	    {
+		this.nosleep.enable();
+		this.nosleeping = true
+	    };
+	
 	axios.post('/song', {idx: idx})
 	    .then(res => {
 
@@ -117,7 +131,7 @@ export class App extends React.Component
     {
 	axios.post('/song', {idx: -1})
 	.then(res => {});
-	this.startSong(false);
+
     }
 
 
