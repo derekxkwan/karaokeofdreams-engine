@@ -1,4 +1,4 @@
-#N canvas 81 218 1523 949 12;
+#N canvas 81 200 1523 949 12;
 #X obj 132 840 abs/dkezdac~ 1 2;
 #X obj 135 751 abs/vfreeverb~;
 #X obj 47 629 ./melsynths_ipt;
@@ -56,7 +56,7 @@
 #X obj 24 229 t b b;
 #X obj 102 215 t b b b, f 27;
 #X obj 839 257 vsl 15 128 0 0.75 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 5371 1;
+-1 -1 0 1;
 #X msg 844 414 phdepth \$1;
 #X floatatom 882 378 5 0 0 0 - - -;
 #X msg 1040 410 phrate \$1;
@@ -161,13 +161,13 @@
 #X connect 19 1 13 1;
 #X restore 27 509 pd midireader;
 #X obj 1044 221 vsl 15 128 0.5 3 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 2214 1;
+-1 -1 0 1;
 #X floatatom 1060 375 5 0 0 0 - - -;
 #X obj 823 478 vsl 15 128 0 0.75 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 5730 1;
+-1 -1 0 1;
 #X floatatom 880 606 5 0 0 0 - - -;
 #X obj 1089 476 vsl 15 128 0.5 2 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 5334 1;
+-1 -1 0 1;
 #X floatatom 1115 639 5 0 0 0 - - -;
 #X msg 860 647 fldepth \$1;
 #X msg 1085 665 flrate \$1;
@@ -177,19 +177,19 @@
 #X obj 856 457 abs/dkrrand 0 0.75;
 #X obj 1232 480 abs/dkrrand 0.5 5;
 #X obj 1219 516 vsl 15 128 0.5 5 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 2355 1;
+-1 -1 0 1;
 #X floatatom 1255 635 5 0 0 0 - - -;
 #X msg 1218 672 flwidth \$1;
 #X obj 1364 534 vsl 15 128 0 0.5 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 332 1;
+-1 -1 0 1;
 #X floatatom 1408 636 5 0 0 0 - - -;
 #X msg 1359 670 flfb \$1;
 #X obj 1373 503 abs/dkrrand 0 0.5;
 #X obj 1174 221 vsl 15 128 0 0.1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 12272 1;
+-1 -1 0 1;
 #X floatatom 1202 348 5 0 0 0 - - -;
 #X obj 1363 196 vsl 15 128 0.1 1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 1829 1;
+-1 -1 0 1;
 #X floatatom 1428 292 5 0 0 0 - - -;
 #X msg 1174 378 chdepth \$1;
 #X msg 1359 385 chrate \$1;
@@ -198,7 +198,7 @@
 #X text 541 264 vol;
 #X obj 996 164 abs/dkrrand 0.5 3;
 #X obj 1101 451 abs/dkrrand 0.5 2;
-#N canvas 352 114 1049 652 oschandler 0;
+#N canvas 80 173 1049 652 oschandler 0;
 #X obj 137 87 oscparse;
 #X obj 290 28 loadbang;
 #X msg 290 68 listen 3334;
@@ -234,9 +234,17 @@
 #X obj 247 368 * 1000;
 #X text 315 367 length in ms;
 #X obj 247 392 s curlength;
+#X obj 415 590 netsend -u -b;
+#X msg 433 544 connect 192.168.2.255 3335;
+#X obj 415 436 oscformat -f f song;
+#X obj 415 460 list prepend send;
+#X obj 415 484 list trim;
+#X msg 453 398 999;
+#X text 586 485 forwarding song indexes to broadcast;
 #X connect 0 0 4 0;
 #X connect 1 0 2 0;
 #X connect 1 0 8 0;
+#X connect 1 0 35 0;
 #X connect 2 0 3 0;
 #X connect 3 0 0 0;
 #X connect 4 0 12 0;
@@ -246,7 +254,9 @@
 #X connect 8 0 10 0;
 #X connect 9 0 5 0;
 #X connect 12 0 24 0;
+#X connect 12 0 36 0;
 #X connect 12 1 25 0;
+#X connect 12 1 39 0;
 #X connect 13 0 15 0;
 #X connect 15 0 14 0;
 #X connect 16 0 29 0;
@@ -264,6 +274,11 @@
 #X connect 29 0 17 0;
 #X connect 29 1 31 0;
 #X connect 31 0 33 0;
+#X connect 35 0 34 0;
+#X connect 36 0 37 0;
+#X connect 37 0 38 0;
+#X connect 38 0 34 0;
+#X connect 39 0 36 0;
 #X restore 342 32 pd oschandler;
 #X obj 944 10 loadbang;
 #X msg 944 34 \; pd dsp 1;
